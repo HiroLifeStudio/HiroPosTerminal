@@ -1,0 +1,508 @@
+/* style.css */
+
+:root {
+    --primary: #4c1d95;
+    --primary-light: #6d28d9;
+    --secondary: #8b5cf6;
+    --hover: #7c3aed;
+    --active: #22c55e;
+    --text: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --background: #1f2937;
+    --gray: #64748b;
+    --border-radius: 25px;
+    --terminal-border-radius: 40px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.payment-terminal {
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: table;
+}
+
+.payment-terminal:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-bottom: 206.13%;
+    background: transparent url('https://i.imgur.com/rKxfjaD.png') no-repeat center center;
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+/* Zona para deslizar tarjeta */
+.nfc-card-zone {
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 80px;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nfc-drop-indicator {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 80px;
+    border: 3px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.nfc-drop-indicator.active {
+    opacity: 1;
+    animation: fadeInOut 1.5s infinite;
+}
+
+@keyframes fadeInOut {
+    0% { border-color: rgba(255, 255, 255, 0.2); }
+    50% { border-color: var(--active); }
+    100% { border-color: rgba(255, 255, 255, 0.2); }
+}
+
+/* Logo sin enlace */
+.terminal-logo {
+    position: absolute;
+    top: 23%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 11;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.terminal-logo img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.payment-terminal .screen-mask {
+    display: block;
+    width: 71%;
+    height: 20%;
+    margin-top: 70%;
+    margin-left: 14%;
+    padding-bottom: 122%;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+.payment-terminal-content {
+    list-style: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    background-color: #1f2937; /* Fondo oscuro para contraste */
+}
+
+.terminal-screen {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    color: var(--text);
+    text-align: left;
+    gap: 16px;
+    overflow: hidden;
+    background-color: #f8fafc;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 16px;
+    margin-bottom: 5px;
+}
+
+.transaction-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #10b981;
+    margin: 0;
+}
+
+.transaction-header .date-time {
+    font-size: 13px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.merchant-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 14px 18px;
+    border-radius: 16px;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+}
+
+.merchant-icon {
+    width: 50px;
+    height: 50px;
+    background: #10b981;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 22px;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.merchant-details .merchant-name {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 4px;
+    color: #10b981 !important;
+    letter-spacing: 0.02em;
+}
+
+.merchant-details .merchant-location {
+    font-size: 13px;
+    color: #10b981 !important;
+    opacity: 0.9;
+    letter-spacing: 0.01em;
+}
+
+.payment-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #7c3aed;
+    background-image: linear-gradient(135deg, #7c3aed, #6d28d9);
+    border-radius: 16px;
+    padding: 20px 24px;
+    color: var(--text);
+    box-shadow: 0 6px 16px rgba(124, 58, 237, 0.25);
+    margin-bottom: 10px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.85);
+    position: relative;
+    padding: 8px 0;
+    font-weight: 500;
+}
+
+.detail-row.total {
+    font-weight: 700;
+    font-size: 17px;
+    color: #ffffff;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 12px;
+    padding-top: 16px;
+    letter-spacing: 0.03em;
+}
+
+.payment-status {
+    font-size: 20px;
+    text-align: center;
+    font-weight: 600;
+    padding: 18px;
+    border-radius: 16px;
+    background: #6d28d9;
+    background-image: linear-gradient(45deg, #6d28d9, #7c3aed);
+    color: var(--text);
+    box-shadow: 0 4px 12px rgba(109, 40, 217, 0.25);
+    letter-spacing: 0.02em;
+    transition: all 0.3s ease;
+}
+
+.card {
+    width: 300px;
+    height: 180px;
+    background: linear-gradient(135deg, #7c3aed, #4c1d95);
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 50%;
+    left: calc(50% + 250px);
+    transform: translate(-50%, -50%);
+    cursor: grab;
+    z-index: 100;
+    transition: opacity 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    color: white;
+    touch-action: none;
+    user-select: none;
+    will-change: transform;
+    overflow: hidden;
+}
+
+/* Elementos decorativos de la tarjeta */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.15), transparent 60%);
+    z-index: -1;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.card-logo {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.card-logo img {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.card-chip {
+    width: 40px;
+    height: 30px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    border-radius: 4px;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 2px;
+    padding: 2px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chip-grid {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 1px;
+}
+
+.card-number {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    letter-spacing: 4px;
+    margin-top: 40px;
+    opacity: 0.9;
+}
+
+.card-holder {
+    font-size: 14px;
+    opacity: 0.8;
+    text-transform: uppercase;
+    margin-top: auto;
+}
+
+.card-expiry {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+.card-brand {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+.contactless-icon {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 30px;
+    height: 24px;
+}
+
+.contactless-icon span {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+}
+
+.contactless-icon span:nth-child(1) {
+    transform: scale(0.5);
+}
+
+.contactless-icon span:nth-child(2) {
+    transform: scale(0.7);
+}
+
+.contactless-icon span:nth-child(3) {
+    transform: scale(0.9);
+}
+
+.card-stripe {
+    display: none; /* Ocultar la banda magnética */
+}
+
+.card.active {
+    cursor: grabbing;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.success-screen {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1f2937;
+    background-image: radial-gradient(circle at 70% 30%, #2d3748, #1f2937);
+    color: var(--text);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 20;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    border-radius: 20px;
+}
+
+.success-screen.show {
+    display: flex;
+    opacity: 1;
+}
+
+.success-screen h2 {
+    font-size: 34px;
+    margin-bottom: 20px;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    color: #10b981;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.success-screen.show h2 {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.success-screen p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    color: #f1f5f9;
+    font-weight: 500;
+}
+
+.success-screen.show p {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.success-screen button {
+    padding: 14px 32px;
+    font-size: 16px;
+    background-color: #10b981;
+    background-image: linear-gradient(to right, #10b981, #34d399);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.success-screen button:hover {
+    background-image: linear-gradient(to right, #0ea271, #10b981);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(16, 185, 129, 0.5);
+}
+
+.success-screen.show button {
+    opacity: 1;
+    transform: scale(1);
+}
